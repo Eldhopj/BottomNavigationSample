@@ -12,12 +12,15 @@ package com.example.eldho.bottomnavigationsample;
  *          When backButton pressed it came back to HomeFragment*/
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -33,14 +36,18 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigation);//reference to the bottom nav view
         /**Pass the onClick_bottom navi listener to out bottom navigation*/
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
         //I added this if statement to keep the selected fragment when rotating the device
         if (savedInstanceState == null) { /**If implementing screen rotation only this check have to be implemented*/
-        /**Starting fragment
+            loadFirstFragment();
+        }
+        setUpBadge();
+    }
+
+    private void loadFirstFragment() {
+            /**Starting fragment
              * if its not given its just shows a blank page because none of the fragments selected*/
             displayFragment(new HomeFragment());
             toolbar.setTitle("Home");
-        }
     }
 
     /**For onClick_bottom navi listener*/
@@ -49,17 +56,19 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) { //item -> gives which item is selected
             Fragment selectedFragment = null;
 
+            removeBadge(item.getItemId()); // For removing badge
+
             switch (item.getItemId()){
                 case R.id.homeNav:
-                    selectedFragment=new HomeFragment(); // create home fragment
+                    selectedFragment=new HomeFragment();
                     toolbar.setTitle("Home");
                     break;
                 case R.id.emailNav:
-                    selectedFragment=new EmailFragment(); // create email fragment
+                    selectedFragment=new EmailFragment();
                     toolbar.setTitle("Email");
                     break;
                 case R.id.noteNav:
-                    selectedFragment=new NoteFragment(); // create note fragment
+                    selectedFragment=new NoteFragment();
                     toolbar.setTitle("Note");
                     break;
             }
@@ -70,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
          return false;
         }
     };
+
     /**To show the fragments*/
     private void displayFragment(Fragment fragment){
         getSupportFragmentManager() //to get FragmentManager object
@@ -86,5 +96,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void setUpBadge() {
+        BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.homeNav);
+        badge.setNumber(5);// for number badge
+
+        bottomNavigationView.getOrCreateBadge(R.id.emailNav); // for dot badge
+    }
+
+    private void removeBadge(int itemId) {
+        bottomNavigationView.removeBadge(itemId);
     }
 }

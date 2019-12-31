@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,10 +17,9 @@
         app:layout_constraintTop_toTopOf="parent">
     </FrameLayout>
 
-    <!--By default the color of bottomNavigation is transparent -->
-    <!--Its better to use default styling but here i changed it
-        app:itemIconTint="@color/nav_select_color" , custom color res for selection and deselection-->
-    <android.support.design.widget.BottomNavigationView
+<!--    Note : The style is upgraded into latest material theme style. for legacy remove the style -->
+<!--    The app:itemIconTint and app:itemTextColor takes color selector check the codes below-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,12 +27,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainer"
-
-        app:itemBackground="@android:color/white"
-        app:itemIconTint="@color/nav_select_color"
-        app:itemTextColor="@color/colorPrimary"
-
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
+        app:itemIconTint="@drawable/bottom_navigation_colors"
+        app:itemTextColor="@drawable/bottom_navigation_colors"
         app:menu="@menu/bottom_navigation" /> <!--adding menu to bottom navigation-->
 
-
-</android.support.constraint.ConstraintLayout>
+<!--    Component Attribute 	            Default Theme Attribute Value-->
+    <!--..................................................................-->
+<!--    itemTextAppearanceActive 	            textAppearanceCaption-->
+<!--    itemTextAppearanceInactive 	            textAppearanceCaption-->
+<!--    android:background 	                    colorSurface-->
+<!--    itemIconTint (checked, enabled) 	    colorPrimary-->
+<!--    itemIconTint (enabled) 	                colorOnSurface at 54% opacity-->
+<!--    itemIconTint (disabled) 	            colorOnSurface at 21% opacity-->
+<!--    itemTextColor (checked, enabled) 	    colorPrimary-->
+<!--    itemTextColor (enabled) 	            colorOnSurface at 54% opacity-->
+<!--    itemTextColor (disabled) 	            colorOnSurface at 21% opacity-->
+</androidx.constraintlayout.widget.ConstraintLayout>
