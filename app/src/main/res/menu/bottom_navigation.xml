@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/homeNav"
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--    Important the nav graph id and menu id must be same -->
+    <item
+        android:id="@+id/homeFragment"
         android:title="Home"
-        android:icon="@drawable/home"
-       />
-    <item android:id="@+id/noteNav"
+        android:icon="@drawable/home" />
+    <item
+        android:id="@+id/noteFragment"
         android:title="Note"
-        android:icon="@drawable/note"
-   />
-    <item android:id="@+id/emailNav"
+        android:icon="@drawable/note" />
+    <item
+        android:id="@+id/emailFragment"
         android:title="Email"
-        android:icon="@drawable/email"
-       />
+        android:icon="@drawable/email" />
 </menu>
