@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         setUpActionBarNames()
 
         setUpBadge()
+
     }
 
     private fun setUpActionBarNames() {
@@ -32,15 +33,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpBadge() {
         bottomNavigationView.getOrCreateBadge(R.id.homeFragment).apply {
+            isVisible = true
+        } // for dot badge
+        bottomNavigationView.getOrCreateBadge(R.id.emailFragment).apply {
             number = 5 // for number badge
             isVisible = true
         }
-        bottomNavigationView.getOrCreateBadge(R.id.emailFragment).apply {
-            isVisible = true
-        } // for dot badge
     }
 
-    private fun removeBadge(itemId: Int) {
-        bottomNavigationView.removeBadge(itemId)
+    //As best practice if you need to temporarily hide the badge (e.g. until the next notification is received), by changing the visibility
+    private fun temporaryRemovalOfBadge(itemId: Int) {
+        val badgeDrawable = bottomNavigationView.getBadge(itemId)
+        if (badgeDrawable != null) {
+            badgeDrawable.isVisible = false
+            badgeDrawable.clearNumber()
+        }
     }
+
+    private fun permanentRemovalOfBadge(itemId: Int) {
+        bottomNavigationView.removeBadge(itemId) //Permanently removing of badge
+    }
+
 }
